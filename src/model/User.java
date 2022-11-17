@@ -30,4 +30,5 @@ public class  User{
 	public void setvinculationdate(Calendar vinculationdate){
 		this.vinculationdate = vinculationdate;
 	}
+
 }

@@ -31,6 +31,7 @@ public class NeotunesApp {
 	*/
 	public  void menu() {
 	 	int cuantity=0, i=0,position= 0; 
+		String nickname="",id="",message="";
 		System.out.println("|modo administrador|");
 		do{
 			System.out.println("menu de opciones\n"
@@ -63,12 +64,42 @@ public class NeotunesApp {
 				break;
 				case 3:
 					i=0;
-					System.out.println("ingrese la cantidad de listas de reproduccion modificar");
-					cuantity= sc.nextInt();
+					do{
+						System.out.println("ingrese el nickname del  usuario que desea realizar acciones con las playlist");
+						nickname= sc.nextLine();
+						System.out.println("ingrese el documento del  usuario que desea realizar acciones con las playlist");
+						id= sc.nextLine();
+						if(!Neo.searchuser(nickname,id)){
+							System.out.println("el usuario no existe");
+						}
+					}while(Neo.searchuser(nickname,id));
+					System.out.println("ingrese la funcion que desea realizar\n"
+					+"1. agregar listas de reproduccion a un usuario\n"
+					+"2. adicionar audios de la lista\n"
+					+"3. eliminar audios de la lista\n"
+					+"4. compartir una lista de reproduccion\n");
+					position= sc.nextInt();
+					switch(position){
+						case 1:
+						System.out.println("ingrese la cantidad de listas de reproduccion modificar");
+						cuantity= sc.nextInt();
 						do{
-							createlistOfReproduction();
+							createlistOfReproduction(nickname);
 							i++;
 						}while(cuantity>=i);
+						break;
+						case 2:
+						 message=Neo.showaudios();
+						 System.out.println(message);
+						break;
+						case 3:
+						
+						break;
+						case 4: 
+						
+						break;
+					}
+					
 				break;
 				case 4:
 					//more code
@@ -184,16 +215,19 @@ public class NeotunesApp {
 				album= sc.nextLine();
 				System.out.println("ingrese el valor del album");
 				value=sc.nextDouble();
-				Neo.addcontent(nameuser,name,coverpage,durationtime,numberOfReproduction,album,value,unitssold);
+				message=Neo.addcontent(nameuser,name,coverpage,durationtime,numberOfReproduction,album,value,unitssold);
 			}
 			if(option==2){
 				System.out.println("ingrese la descripcion del podcast");
 				description= sc.nextLine();
-				Neo.addcontent(nameuser,name,coverpage,durationtime,numberOfReproduction,description);
+				message=Neo.addcontent(nameuser,name,coverpage,durationtime,numberOfReproduction,description);
 			}
 		System.out.println(message);
 	}
-	public void createlistOfReproduction(){
-		
+	public void createlistOfReproduction(String nickname){
+		String name="",message="";
+		System.out.println("ingrese el nombre de la playlist");
+		name= sc.nextLine();
+		message=Neo.addreproductionlist(name,nickname,0);
 	}
 }

@@ -87,9 +87,15 @@ public class Neotunescontroller{
 	* @return a message of the positive method result if it was recorded negative if it could not be recorded
 	*/
 	public String addcontent(String nameuser,String name,String coverpage,double durationtime,int numberOfReproduction,String album,double value,int unitssold){
-		String message="";
-			audiocollection.add(new Song(name,coverpage,durationtime,numberOfReproduction,album,value,unitssold));
-			message="la cancion fue registrada correctamente";
+		String message="no se pudo registrar la cancion por que el usuario no existe";
+			for(int i=0;i<users.size();i++){
+			if(users.get(i) instanceof Artist && searchuser(nameuser,users.get(i).getid())){
+				audiocollection.add(new Song(name,coverpage,durationtime,numberOfReproduction,album,value,unitssold));
+				message="la cancion fue registrada correctamente";
+				users.get(i).addsong(name,coverpage,durationtime,numberOfReproduction,album,value,unitssold);
+			}
+		}
+			
 		return message;
 	}
 	/**
@@ -101,9 +107,31 @@ public class Neotunescontroller{
 	* @return a message of the positive method result if it was recorded negative if it could not be recorded
 	*/
 	public String addcontent(String nameuser,String name,String coverpage,double durationtime,int numberOfReproduction,String description){
+		String message="no se pudo registrar el podcast por que el usuario no existe";
+		for(int i=0;i<users.size();i++){
+			if(users.get(i) instanceof CreatorContent && searchuser(nameuser,users.get(i).getid())){
+				audiocollection.add(new Podcast(name,coverpage,durationtime,numberOfReproduction,description));
+				message="el podcast fue registrada correctamente";
+				users.get(i).addpodcast(name,coverpage,durationtime,numberOfReproduction,description);
+			}
+		}
+		return message;
+	}
+	public String addreproductionlist(String listname,String usernickname,int listcode){
+		String message="no se pudo registrar la lista de reproduccion por que el usuario es productor";
+		for(int i=0;i<users.size();i++){
+			if((!(users.get(i) instanceof Producer)) && users.get(i).getnickname().equalsIgnoreCase(usernickname)){
+				audiocollection.add(new Podcast(name,coverpage,durationtime,numberOfReproduction,description));
+				message=users.get(i).addReproductionlists(listname,listcode);
+			}
+		}
+		return message
+	}
+	public String showaudios(){
 		String message="";
-			audiocollection.add(new Podcast(name,coverpage,durationtime,numberOfReproduction,description));
-			message="el podcast fue registrada correctamente";
+		for(int i=0;i<audiocollection.size();i++){
+			message=message + i+audiocollection.get(i).getname()+ "\n";
+		}
 		return message;
 	}
 }
