@@ -1,6 +1,7 @@
 package ui;
 import java.util.Scanner;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 import model.Neotunescontroller;
 public class NeotunesApp {
     public static Scanner sc= new Scanner(System.in);
@@ -30,8 +31,10 @@ public class NeotunesApp {
 	* <b>post:</b> directs the different sub-processes of the system<br>
 	*/
 	public  void menu() {
-	 	int cuantity=0, i=0,position= 0; 
+	 	int cuantity=0, i=0,position= 0,p=0,selection=0;
+		double number1=0;
 		String nickname="",id="",message="";
+		char letter;
 		System.out.println("|modo administrador|");
 		do{
 			System.out.println("menu de opciones\n"
@@ -89,20 +92,78 @@ public class NeotunesApp {
 						}while(cuantity>=i);
 						break;
 						case 2:
+						 i=0;
+						 message=Neo.showlists(nickname);
+						 System.out.println(message);
+						 System.out.println("ingrese la lista a modificar");
+						 selection=sc.nextInt();
 						 message=Neo.showaudios();
 						 System.out.println(message);
+						 System.out.println("ingrese la cantidad de audios que desea registrar");
+						 cuantity= sc.nextInt();
+						 do{
+							System.out.println("ingrese el numero del audio a registrar");
+							p= sc.nextInt();
+							Neo.addAudiostoreproductionlits(selection,p,nickname);
+							i++;
+						 }while(cuantity>=i);
 						break;
 						case 3:
-						
+						 message=Neo.showlists(nickname);
+						 System.out.println(message);
+						 System.out.println("ingrese la lista a modificar");
+						 selection=sc.nextInt();
+						 message=Neo.showaudiosinalist(nickname,selection);
+						 System.out.println(message);
+						 System.out.println("ingrese la cantidad de audios que desea eliminar");
+						 cuantity= sc.nextInt();
+						 do{
+							System.out.println("ingrese el numero del audio a eliminar");
+							p= sc.nextInt();
+							Neo.removeAudiostoreproductionlits(selection,p,nickname);
+							i++;
+						 }while(cuantity>=i);
 						break;
 						case 4: 
-						
+						 //more code
 						break;
 					}
 					
 				break;
 				case 4:
-					//more code
+					i=0;
+					do{
+						System.out.println("ingrese el nickname del  usuario que desea  reproducir");
+						nickname= sc.nextLine();
+						System.out.println("ingrese el documento del  usuario que desea reproducir");
+						id= sc.nextLine();
+						if(!Neo.searchuser(nickname,id)){
+							System.out.println("el usuario no existe");
+						}
+					}while(Neo.searchuser(nickname,id));
+						message=Neo.showaudios();
+						 System.out.println(message);
+						 System.out.println("ingrese la cantidad de audios que desea reproducr");
+						 cuantity= sc.nextInt();
+						 do{
+							 try{
+								System.out.println("ingrese el numero del audio a reproducir");
+								p= sc.nextInt();
+								message= Neo.sponsor(nickname,p);
+								for (int z= 0; z < message.length(); z++) {
+									letter = message.charAt(z);
+									if (isnumber(letter)) {
+										number1=(double) letter;
+									}
+								}
+								TimeUnit.SECONDS.sleep((int) Neo.timesponsor(nickname,number1));
+								message=Neo.reproduce(nickname,p);
+								TimeUnit.SECONDS.sleep(10);
+								i++;
+							 }catch(Exception e){
+								System.out.println(e); 
+							 }
+						 }while(cuantity>=i);
 				break;
 				case 5:
 					//more code
@@ -187,7 +248,7 @@ public class NeotunesApp {
 	*/
 	public  void registercontent(){
 		String message="",name="",nameuser="", coverpage="",description="",album="";
-		int numvisualizations=0,option=0,unitssold=0,durationtime=0,numberOfReproduction=0;
+		int numvisualizations=0,option=0,unitssold=0,durationtime=0,numberOfReproduction=0,category=0;
 		double value=0;
 		boolean comprobant=false;
 		System.out.println("ingrese el nombre del usuario que creo el contenido");
@@ -215,12 +276,24 @@ public class NeotunesApp {
 				album= sc.nextLine();
 				System.out.println("ingrese el valor del album");
 				value=sc.nextDouble();
-				message=Neo.addcontent(nameuser,name,coverpage,durationtime,numberOfReproduction,album,value,unitssold);
+				System.out.println("ingrese el tipo de cancion \n"
+					+"1.rock \n"
+					+"2.pop \n"
+					+"3.trap \n"
+					+"4.house \n");
+					category= sc.nextInt();
+				message=Neo.addcontent(nameuser,name,coverpage,durationtime,numberOfReproduction,album,value,unitssold,category);
 			}
 			if(option==2){
 				System.out.println("ingrese la descripcion del podcast");
 				description= sc.nextLine();
-				message=Neo.addcontent(nameuser,name,coverpage,durationtime,numberOfReproduction,description);
+				System.out.println("ingrese el tipo de podcast \n"
+					+"1.politica \n"
+					+"2.entretenimiento \n"
+					+"3.videojuegos \n"
+					+"4.moda \n");
+					category= sc.nextInt();
+				message=Neo.addcontent(nameuser,name,coverpage,durationtime,numberOfReproduction,description,category);
 			}
 		System.out.println(message);
 	}
@@ -229,5 +302,15 @@ public class NeotunesApp {
 		System.out.println("ingrese el nombre de la playlist");
 		name= sc.nextLine();
 		message=Neo.addreproductionlist(name,nickname,0);
+	}
+		/**
+	*<b>name:</b>isnumber<br>
+	*is in charge of searching if the letter is a number 
+	*<b> post: </b>it will be determined the letter is a number or not <br>
+	*@param  letter char is a letter of the brand	
+	* @return  will send a determination as to whether or not the letter is a number. 
+	*/
+	public  boolean isnumber(char letter) {
+		return "123456789".contains(String.valueOf(letter).toLowerCase());
 	}
 }

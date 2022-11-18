@@ -27,7 +27,7 @@ public class Neotunescontroller{
 		String message="";
 		if(!searchuser(nickname,id)){
 			if (option==1){
-				 users.add(new Standar(id,nickname,podcasttimereproduced,songtimereproduced,mostlistenpodcastuser,mostlistensonguser,mostlistenpodcast,mostlistensong,vinculationdate,0,0));
+				 users.add(new Standar(id,nickname,podcasttimereproduced,songtimereproduced,mostlistenpodcastuser,mostlistensonguser,mostlistenpodcast,mostlistensong,vinculationdate,0,0,0));
 			}else{
 				 users.add(new Premium(id,nickname,podcasttimereproduced,songtimereproduced,mostlistenpodcastuser,mostlistensonguser,mostlistenpodcast,mostlistensong,vinculationdate));
 			}
@@ -86,13 +86,14 @@ public class Neotunescontroller{
 	* @param nickname is a String data type that serves as the unique identifier (id) of the user.
 	* @return a message of the positive method result if it was recorded negative if it could not be recorded
 	*/
-	public String addcontent(String nameuser,String name,String coverpage,double durationtime,int numberOfReproduction,String album,double value,int unitssold){
+	public String addcontent(String nameuser,String name,String coverpage,double durationtime,int numberOfReproduction,String album,double value,int unitssold,int category){
 		String message="no se pudo registrar la cancion por que el usuario no existe";
 			for(int i=0;i<users.size();i++){
 			if(users.get(i) instanceof Artist && searchuser(nameuser,users.get(i).getid())){
-				audiocollection.add(new Song(name,coverpage,durationtime,numberOfReproduction,album,value,unitssold));
+				Artist user= (Artist)users.get(i);
+				audiocollection.add(new Song(name,coverpage,durationtime,numberOfReproduction,album,value,unitssold,category));
 				message="la cancion fue registrada correctamente";
-				users.get(i).addsong(name,coverpage,durationtime,numberOfReproduction,album,value,unitssold);
+				user.addsong(name,coverpage,durationtime,numberOfReproduction,album,value,unitssold,category);
 			}
 		}
 			
@@ -106,13 +107,14 @@ public class Neotunescontroller{
 	* @param nickname is a String data type that serves as the unique identifier (id) of the user.
 	* @return a message of the positive method result if it was recorded negative if it could not be recorded
 	*/
-	public String addcontent(String nameuser,String name,String coverpage,double durationtime,int numberOfReproduction,String description){
+	public String addcontent(String nameuser,String name,String coverpage,double durationtime,int numberOfReproduction,String description,int category){
 		String message="no se pudo registrar el podcast por que el usuario no existe";
 		for(int i=0;i<users.size();i++){
 			if(users.get(i) instanceof CreatorContent && searchuser(nameuser,users.get(i).getid())){
-				audiocollection.add(new Podcast(name,coverpage,durationtime,numberOfReproduction,description));
+				CreatorContent user= (CreatorContent)users.get(i);
+				audiocollection.add(new Podcast(name,coverpage,durationtime,numberOfReproduction,description,category));
 				message="el podcast fue registrada correctamente";
-				users.get(i).addpodcast(name,coverpage,durationtime,numberOfReproduction,description);
+				user.addpodcast(name,coverpage,durationtime,numberOfReproduction,description,category);
 			}
 		}
 		return message;
@@ -121,11 +123,22 @@ public class Neotunescontroller{
 		String message="no se pudo registrar la lista de reproduccion por que el usuario es productor";
 		for(int i=0;i<users.size();i++){
 			if((!(users.get(i) instanceof Producer)) && users.get(i).getnickname().equalsIgnoreCase(usernickname)){
-				audiocollection.add(new Podcast(name,coverpage,durationtime,numberOfReproduction,description));
-				message=users.get(i).addReproductionlists(listname,listcode);
+				Consumer user=(Consumer) users.get(i);
+				message=user.addReproductionlists(listname,listcode);
 			}
 		}
-		return message
+		return message;
+	}
+	
+	public String showlists(String nickname){
+		String message="";
+		for(int i=0;i<users.size();i++){
+			if((!(users.get(i) instanceof Producer)) && users.get(i).getnickname().equalsIgnoreCase(nickname)){
+				Consumer user=(Consumer) users.get(i);
+				message=user.showlists();
+			}		
+		}
+		return message;
 	}
 	public String showaudios(){
 		String message="";
@@ -133,5 +146,108 @@ public class Neotunescontroller{
 			message=message + i+audiocollection.get(i).getname()+ "\n";
 		}
 		return message;
+	}
+	public String addAudiostoreproductionlits(int listselected,int position,String nickname){
+		String message="audio adicionado correctamente";
+		if(audiocollection.get(position)!=null){
+			if(audiocollection.get(position) instanceof Song){
+				Song newsong= (Song) audiocollection.get(position);	
+				for(int i=0;i<users.size();i++){
+					if((!(users.get(i) instanceof Producer)) && users.get(i).getnickname().equalsIgnoreCase(nickname)){
+						Consumer user=(Consumer) users.get(i);
+						user.addaudiostoReproductionlists(listselected,newsong);
+					}		
+				}
+			}else{
+				Podcast newpodcast= (Podcast) audiocollection.get(position);
+				for(int i=0;i<users.size();i++){
+					if((!(users.get(i) instanceof Producer)) && users.get(i).getnickname().equalsIgnoreCase(nickname)){
+						Consumer user=(Consumer) users.get(i);
+						user.addaudiostoReproductionlists(listselected,newpodcast);
+					}
+				}
+			}
+		}
+		return message;
+	}
+	public String showaudiosinalist(String nickname, int selection){
+		String message="";
+		for(int i=0;i<users.size();i++){
+			if((!(users.get(i) instanceof Producer)) && users.get(i).getnickname().equalsIgnoreCase(nickname)){
+				Consumer user=(Consumer) users.get(i);
+				message=user.showaudiostoReproductionlists(selection);
+			}
+		}
+		return message;
+	}
+	public String removeAudiostoreproductionlits(int listselected,int position,String nickname){
+		String message="audio removido correctamente";
+		for(int i=0;i<users.size();i++){
+			if((!(users.get(i) instanceof Producer)) && users.get(i).getnickname().equalsIgnoreCase(nickname)){
+				Consumer user=(Consumer) users.get(i);
+				user.deleteaudiostoReproductionlists(listselected,position);
+			}
+		}
+		return message;
+	}
+	public String sponsor(String nickname,int audionumber){
+		String message="";
+		for(int i=0;i<users.size();i++){
+			if((!(users.get(i) instanceof Producer)) && users.get(i).getnickname().equalsIgnoreCase(nickname)){
+				Consumer user=(Consumer) users.get(i);
+				if(user instanceof Standar){
+					Standar userp=(Standar) user;
+					if(audiocollection.get(audionumber) instanceof Song && (userp.getnumberofsongsreproduced()%2)==0){
+						message=userp.generatesponsor();
+					}
+					if(audiocollection.get(audionumber) instanceof Podcast){
+						message=userp.generatesponsor();
+					}
+				}
+			}
+		}
+		return message;
+	}
+	public String reproduce(String nickname,int audionumber){
+		String message="";
+		for(int i=0;i<users.size();i++){
+			if((!(users.get(i) instanceof Producer)) && users.get(i).getnickname().equalsIgnoreCase(nickname)){
+				Consumer user=(Consumer) users.get(i);
+				if(user instanceof Premium){
+					Premium novouser=(Premium) user;
+					if(audiocollection.get(audionumber) instanceof Song){
+						Song song= (Song)audiocollection.get(audionumber);
+						message=novouser.reproductionsong(song);
+					}else{
+						Podcast podcast=(Podcast)audiocollection.get(audionumber);
+						message=novouser.reproductionpodcast(podcast);
+					}
+				}else{
+					Standar novouser=(Standar) user;
+					if(audiocollection.get(audionumber) instanceof Song){
+						Song song= (Song)audiocollection.get(audionumber);
+						message=novouser.reproductionsong(song);
+					}else{
+						Podcast podcast=(Podcast)audiocollection.get(audionumber);
+						message=novouser.reproductionpodcast(podcast);
+					}
+				}
+			}
+		}
+		return message;
+	} 
+	public double timesponsor(String nickname,double numberofsponsor){
+		if (numberofsponsor!=0){
+			for(int i=0;i<users.size();i++){
+			if((!(users.get(i) instanceof Producer)) && users.get(i).getnickname().equalsIgnoreCase(nickname)){
+				Consumer user=(Consumer) users.get(i);
+				if(user instanceof Standar){
+					Standar novouser=(Standar) user;
+						numberofsponsor=novouser.timesponsors(numberofsponsor);
+					}
+				}
+			}
+		}
+		return numberofsponsor;
 	}
 }

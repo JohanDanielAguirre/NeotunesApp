@@ -1,18 +1,19 @@
 package model; 
 public enum Sponsor{
-	NIKE("hacelo wachin vos podes",5000),
-	COCACOLA("un sabor pa'compartir",6800),
-	MyMS("disfruta lo bueno",10000);
+	NIKE("hacelo wachin vos podes 1",5),
+	COCACOLA("un sabor pa'compartir 2",6),
+	MYMS("disfruta lo bueno 3",10),
+	PEPSICOLA("sabor para compartir",4);
 	private String brand;
-	private int duration;
-	Sponsor(String brand,int duration){
+	private double duration;
+	Sponsor(String brand,double duration){
 		this.brand=brand;
 		this.duration=duration;
 	}
 	public  String getbrand(){
 		return brand;
 	}
-	public int getduration(){
+	public double getduration(){
 		return duration;
 	}
 }

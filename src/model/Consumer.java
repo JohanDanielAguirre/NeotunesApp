@@ -1,6 +1,6 @@
 package model;
 import java.util.Calendar;
-public class  Consumer extends User{
+public abstract class  Consumer extends User{
 	private double songtimereproduced;
 	private double podcasttimereproduced;
 	private String mostlistenpodcastuser;
@@ -53,5 +53,10 @@ public class  Consumer extends User{
 	public void setmostlistensong(String mostlistensong){
 		this.mostlistensong = mostlistensong;
 	}
-	
+	public abstract String addReproductionlists(String listname,int listcode);
+	public abstract String showlists();
+	public abstract void addaudiostoReproductionlists(int listselected,Song newsong);
+	public abstract void addaudiostoReproductionlists(int listselected,Podcast newpodcast);
+	public abstract String showaudiostoReproductionlists(int selection);
+	public abstract void deleteaudiostoReproductionlists(int listselected,int numberofaudiotodelete);
 }
