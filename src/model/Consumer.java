@@ -1,5 +1,6 @@
 package model;
 import java.util.Calendar;
+import java.util.ArrayList;
 public abstract class  Consumer extends User{
 	private double songtimereproduced;
 	private double podcasttimereproduced;

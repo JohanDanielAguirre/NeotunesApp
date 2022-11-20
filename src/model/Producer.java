@@ -1,6 +1,6 @@
 package model;
 import java.util.Calendar;
-public class  Producer extends User{
+public  class  Producer extends User{
 	private String name;
 	private String photo;
 	private int numvisualizations;

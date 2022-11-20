@@ -209,7 +209,8 @@ public class Neotunescontroller{
 		return message;
 	}
 	public String reproduce(String nickname,int audionumber){
-		String message="";
+		String message="",nameofcreator="";
+		boolean comprobant=false;
 		for(int i=0;i<users.size();i++){
 			if((!(users.get(i) instanceof Producer)) && users.get(i).getnickname().equalsIgnoreCase(nickname)){
 				Consumer user=(Consumer) users.get(i);
@@ -217,19 +218,59 @@ public class Neotunescontroller{
 					Premium novouser=(Premium) user;
 					if(audiocollection.get(audionumber) instanceof Song){
 						Song song= (Song)audiocollection.get(audionumber);
-						message=novouser.reproductionsong(song);
+						for (int k=0;k<users.size() && comprobant;k++){
+							if(users.get(k) instanceof Artist){
+								Artist creator=(Artist) users.get(k);
+								if(creator.validatecreator(song)){
+									comprobant=true;
+									message=novouser.reproductionsong(song,creator);
+								}
+							}
+							
+						}
+						
 					}else{
 						Podcast podcast=(Podcast)audiocollection.get(audionumber);
-						message=novouser.reproductionpodcast(podcast);
+						for (int k=0;k<users.size() && comprobant;k++){
+							if(users.get(k) instanceof CreatorContent){
+								CreatorContent creator=(CreatorContent) users.get(k);
+								if(creator.validatecreator(podcast)){
+									comprobant=true;
+									message=novouser.reproductionpodcast(podcast,creator);
+								}
+							}
+						}
+							
 					}
+						
 				}else{
 					Standar novouser=(Standar) user;
 					if(audiocollection.get(audionumber) instanceof Song){
 						Song song= (Song)audiocollection.get(audionumber);
-						message=novouser.reproductionsong(song);
+						for (int k=0;k<users.size() && comprobant;k++){
+							if(users.get(k) instanceof Artist){
+								Artist creator=(Artist) users.get(k);
+								if(creator.validatecreator(song)){
+									comprobant=true;
+									message=novouser.reproductionsong(song,creator);
+								}
+							}
+							
+						}
+						
 					}else{
 						Podcast podcast=(Podcast)audiocollection.get(audionumber);
-						message=novouser.reproductionpodcast(podcast);
+						for (int k=0;k<users.size() && comprobant;k++){
+							if(users.get(k) instanceof CreatorContent){
+								CreatorContent creator=(CreatorContent) users.get(k);
+								if(creator.validatecreator(podcast)){
+									comprobant=true;
+									message=novouser.reproductionpodcast(podcast,creator);
+								}
+							}
+							
+						}
+						
 					}
 				}
 			}
@@ -249,5 +290,47 @@ public class Neotunescontroller{
 			}
 		}
 		return numberofsponsor;
+	}
+	public String sharematrix(int [][]matrix){
+		String message="";
+		int a=0;
+		for(int i = 0;i<matrix.length;i++){
+			for(int j = 0; j<matrix[i].length;j++){
+				a=(int)Math.random()*10;
+				matrix[i][j] =a;
+			}
+		}	
+		for (int i = 0; i < matrix.length; i++) { 
+            for (int j = 0; j < matrix[i].length; j++) {
+				if(matrix[i][j]>10){
+					message=(matrix[i][j] + " "+"/n");
+				}else{
+					message=(" "+matrix[i][j] + " "+"/n");
+				}
+            }
+          
+        }
+		return message;
+	
+	}
+	public int sharelist(int listselected,String nickname,int [][]codification){
+		int message=0;
+		for(int i=0;i<users.size();i++){
+			if((!(users.get(i) instanceof Producer)) && users.get(i).getnickname().equalsIgnoreCase(nickname)){
+				Consumer user=(Consumer) users.get(i);
+				if(user instanceof Standar){
+					Standar novouser=(Standar) user;
+					Reproductionlist repo=(Reproductionlist) novouser.getCreatedlist().get(listselected);
+					 message=repo.determinatematrix(codification);
+				}else{
+					Premium novouser=(Premium) user;
+					Reproductionlist repo=(Reproductionlist) novouser.getCreatedlist().get(listselected);
+					message= repo.determinatematrix(codification);
+				}
+			}
+		}
+		
+		
+		return message;
 	}
 }

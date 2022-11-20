@@ -45,4 +45,49 @@ public class Reproductionlist{
 	public void removeaudio(int audioselected){
 		Saveaudio.remove(audioselected);
 	}
+	
+	public int determinatematrix(int [][] code){
+		//resultado = Integer.parseInt(res);
+		String number1="";
+		int determinate=0,a=0,b=0;
+		for(int i=0;i<Saveaudio.size();i++){
+			if(Saveaudio.get(i) instanceof Song){
+				a=1;
+			}else{
+				b=1;
+			}
+		}
+		if(a==1 && b==1){
+			for (int i = code.length -1; i >= 0; i--) {
+				for (int j = code.length -1; j >= 0 ; j--) {
+					if (((i + j) % 2 != 0) && ((i + j) > 1)) {
+						number1=number1+String.valueOf(code[i][j]);
+					}
+				}
+			}	
+		}else if(a==1){
+			for(int i=code[0].length-1; i>-1;i--){
+				number1=number1+String.valueOf(code[i][0]);
+			}for(int i=1; i<5;i++){
+				number1=number1+String.valueOf(code[i][i]);
+			}for(int i=code[0].length-1;i>-1;i--){
+				number1=number1+String.valueOf(code[i][5]);
+			}
+		}else if(b==1){
+			for (int j=0;j<code.length-4;j++) { 
+				number1=number1+String.valueOf(code[0][j]);
+			}
+			for (int i=0; i<code.length;i++) { 
+				number1=number1+String.valueOf(code[i][2]);
+			}
+			for (int i=0;code.length>i; i++) { 
+				number1=number1+String.valueOf(code[i-1][3]);
+			}
+			for (int j=code.length -2; j<code.length; j++ ) { 
+				number1=number1+String.valueOf(code[0][j]);
+			}
+		}
+		determinate=Integer.parseInt(number1);
+		return determinate;
+	}
 }

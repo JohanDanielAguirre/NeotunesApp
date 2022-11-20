@@ -10,4 +10,13 @@ public class Artist extends Producer {
 	public void addsong(String name,String coverpage,double durationtime,int numberOfReproduction,String album,double value,int unitssold,int category){
 		Createdsongs.add(new Song(name,coverpage,durationtime,numberOfReproduction,album,value,unitssold,category));
 	}
+	public boolean validatecreator(Song song){
+		boolean comprobant=false;
+		for(int i=0;i<Createdsongs.size();i++){
+			if(Createdsongs.get(i).getname().equalsIgnoreCase(song.getname())){
+				comprobant=true;
+			}
+		}
+		return comprobant;
+	}
 }

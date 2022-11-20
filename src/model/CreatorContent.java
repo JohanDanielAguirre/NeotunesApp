@@ -10,4 +10,13 @@ public class CreatorContent extends Producer {
 	public void addpodcast(String name,String coverpage,double durationtime,int numberOfReproduction,String description, int category){
 		CreatedPodcast.add(new Podcast(name,coverpage,durationtime,numberOfReproduction,description,category));
 	}
+	public boolean validatecreator(Podcast podcast){
+		boolean comprobant=false;
+		for(int i=0;i<CreatedPodcast.size();i++){
+			if(CreatedPodcast.get(i).getname().equalsIgnoreCase(podcast.getname())){
+				comprobant=true;
+			}
+		}
+		return comprobant;
+	}
 }

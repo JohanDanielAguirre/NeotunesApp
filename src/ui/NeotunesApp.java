@@ -7,6 +7,7 @@ public class NeotunesApp {
     public static Scanner sc= new Scanner(System.in);
 	//relations 
 	private Neotunescontroller Neo;
+	public static final int MATRIX=6;
 	/**
 	*name: NeotunesApp <br>
 	*builder of NeotunesApp<br>
@@ -35,6 +36,7 @@ public class NeotunesApp {
 		double number1=0;
 		String nickname="",id="",message="";
 		char letter;
+		int [][] codification= new int [MATRIX][MATRIX];
 		System.out.println("|modo administrador|");
 		do{
 			System.out.println("menu de opciones\n"
@@ -125,7 +127,14 @@ public class NeotunesApp {
 						 }while(cuantity>=i);
 						break;
 						case 4: 
-						 //more code
+						 message=Neo.showlists(nickname);
+						 System.out.println(message);
+						 System.out.println("ingrese la lista a compartir");
+						 selection=sc.nextInt();
+						 message=Neo.sharematrix(codification);
+						 System.out.println(message);
+						 i=Neo.sharelist(selection,nickname,codification);
+						 System.out.println("su codigo para compartir la cancion es "+i);
 						break;
 					}
 					
