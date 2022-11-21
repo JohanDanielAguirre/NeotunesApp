@@ -119,6 +119,8 @@ public class Neotunescontroller{
 		}
 		return message;
 	}
+	/**
+	*/
 	public String addreproductionlist(String listname,String usernickname,int listcode){
 		String message="no se pudo registrar la lista de reproduccion por que el usuario es productor";
 		for(int i=0;i<users.size();i++){
@@ -129,7 +131,8 @@ public class Neotunescontroller{
 		}
 		return message;
 	}
-	
+	/**
+	*/
 	public String showlists(String nickname){
 		String message="";
 		for(int i=0;i<users.size();i++){
@@ -140,6 +143,8 @@ public class Neotunescontroller{
 		}
 		return message;
 	}
+	/**
+	*/
 	public String showaudios(){
 		String message="";
 		for(int i=0;i<audiocollection.size();i++){
@@ -147,6 +152,8 @@ public class Neotunescontroller{
 		}
 		return message;
 	}
+	/**
+	*/
 	public String addAudiostoreproductionlits(int listselected,int position,String nickname){
 		String message="audio adicionado correctamente";
 		if(audiocollection.get(position)!=null){
@@ -170,6 +177,8 @@ public class Neotunescontroller{
 		}
 		return message;
 	}
+	/**
+	*/
 	public String showaudiosinalist(String nickname, int selection){
 		String message="";
 		for(int i=0;i<users.size();i++){
@@ -180,6 +189,8 @@ public class Neotunescontroller{
 		}
 		return message;
 	}
+	/**
+	*/
 	public String removeAudiostoreproductionlits(int listselected,int position,String nickname){
 		String message="audio removido correctamente";
 		for(int i=0;i<users.size();i++){
@@ -190,6 +201,8 @@ public class Neotunescontroller{
 		}
 		return message;
 	}
+	/**
+	*/
 	public String sponsor(String nickname,int audionumber){
 		String message="";
 		for(int i=0;i<users.size();i++){
@@ -199,6 +212,7 @@ public class Neotunescontroller{
 					Standar userp=(Standar) user;
 					if(audiocollection.get(audionumber) instanceof Song && (userp.getnumberofsongsreproduced()%2)==0){
 						message=userp.generatesponsor();
+						userp.setnumberofsongsreproduced(userp.getnumberofsongsreproduced()+1);
 					}
 					if(audiocollection.get(audionumber) instanceof Podcast){
 						message=userp.generatesponsor();
@@ -208,6 +222,8 @@ public class Neotunescontroller{
 		}
 		return message;
 	}
+	/**
+	*/
 	public String reproduce(String nickname,int audionumber){
 		String message="",nameofcreator="";
 		boolean comprobant=false;
@@ -276,7 +292,9 @@ public class Neotunescontroller{
 			}
 		}
 		return message;
-	} 
+	}
+	/**
+	*/
 	public double timesponsor(String nickname,double numberofsponsor){
 		if (numberofsponsor!=0){
 			for(int i=0;i<users.size();i++){
@@ -291,6 +309,8 @@ public class Neotunescontroller{
 		}
 		return numberofsponsor;
 	}
+	/**
+	*/
 	public String sharematrix(int [][]matrix){
 		String message="";
 		int a=0;
@@ -311,8 +331,9 @@ public class Neotunescontroller{
           
         }
 		return message;
-	
 	}
+	/**
+	*/
 	public int sharelist(int listselected,String nickname,int [][]codification){
 		int message=0;
 		for(int i=0;i<users.size();i++){
@@ -331,6 +352,8 @@ public class Neotunescontroller{
 		}
 		return message;
 	}
+	/**
+	*/
 	public String buysong(int audionumber,String nickname){
 		String message="";
 		boolean comprobant=false;
@@ -357,6 +380,125 @@ public class Neotunescontroller{
 				
 			}
 		}
+		return message;
+	}
+	/**
+	*/
+	public String generateinform(String nickname){
+		String message="",gpodcast="",gsongs="";
+		int rpodcast=0,rsongs=0,agm=0,bgm=0,cgm=0,dgm=0,apc=0,bpc=0,cpc=0,dpc=0,asongs=0,bsongs=0,csongs=0,dsongs=0,apodcast=0,bpodcast=0,cpodcast=0,dpodcast=0;
+		for(int i=0;i<users.size();i++){
+			if(users.get(i) instanceof Consumer && users.get(i) instanceof Premium){
+				Premium user=(Premium) users.get(i);
+				rsongs=user.listensongs();
+				rpodcast=user.listenpodcast();
+			}else if(users.get(i) instanceof Consumer && users.get(i) instanceof Standar){
+				Standar user=(Standar) users.get(i);
+				rsongs=user.listensongs();
+				rpodcast=user.listenpodcast();
+			}
+		}
+		message="el numero total de reproducciones son \n"
+		+"para las canciones " + rsongs + " para los podcasts "+ rpodcast;
+		message=" \n";
+		for(int i=0;i<users.size();i++){
+			if(users.get(i).getnickname().equalsIgnoreCase(nickname) && users.get(i) instanceof Consumer){
+				if(users.get(i) instanceof Premium){
+					Premium user=(Premium)users.get(i);
+					message="el usuario "+nickname+ " tiene como genero musical mas visto "+ user.gendermusic() + " y lo ha escuchado "+user.numbergendermusic() +" veces";
+					message="\n";
+					message="el usuario "+nickname+ " tiene como genero de podcast mas visto "+ user.genderpodcast() + " y lo ha escuchado "+user.numbergenderpodcast() +" veces";
+					message="\n";
+				}else{
+					Standar user=(Standar)users.get(i);
+				}
+			}
+		}
+		for(int i=0;i<users.size();i++){
+			if(users.get(i) instanceof Consumer && users.get(i) instanceof Premium){
+				Premium user=(Premium) users.get(i);
+				gsongs=user.gendermusic();
+				switch(gsongs){
+					case "Rock":
+					agm++;
+					asongs=user.numbergendermusic();
+					break;
+					case "Pop":
+					bgm++;
+					bsongs=user.numbergendermusic();
+					break;
+					case "Trap":
+					cgm++;
+					csongs=user.numbergendermusic();
+					break;
+					case "House":
+					dgm++;
+					dsongs=user.numbergendermusic();
+					break;
+				}
+				gpodcast=user.genderpodcast();
+				switch(gsongs){
+					case "Politics":
+					apc++;
+					apodcast=user.numbergenderpodcast();
+					break;
+					case "Entertaiment":
+					bpc++;
+					bpodcast=user.numbergenderpodcast();
+					break;
+					case "Videogames":
+					cpc++;
+					cpodcast=user.numbergenderpodcast();
+					break;
+					case "Fashion":
+					dpc++;
+					dpodcast=user.numbergenderpodcast();
+					break;
+				}
+			}else if(users.get(i) instanceof Consumer && users.get(i) instanceof Standar){
+				Standar user=(Standar) users.get(i);
+				
+				gsongs=user.gendermusic();
+				switch(gsongs){
+					case "Rock":
+					agm++;
+					asongs=user.numbergendermusic();
+					break;
+					case "Pop":
+					bgm++;
+					bsongs=user.numbergendermusic();
+					break;
+					case "Trap":
+					cgm++;
+					csongs=user.numbergendermusic();
+					break;
+					case "House":
+					dgm++;
+					dsongs=user.numbergendermusic();
+					break;
+				}	
+				gpodcast=user.genderpodcast();
+				switch(gpodcast){
+					case "Politics":
+					apc++;
+					apodcast=user.numbergenderpodcast();
+					break;
+					case "Entertaiment":
+					bpc++;
+					bpodcast=user.numbergenderpodcast();
+					break;
+					case "Videogames":
+					cpc++;
+					cpodcast=user.numbergenderpodcast();
+					break;
+					case "Fashion":
+					dpc++;
+					dpodcast=user.numbergenderpodcast();
+					break;
+				}
+			}
+		}
+		
 		return message;
 	}
 }

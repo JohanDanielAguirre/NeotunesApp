@@ -21,6 +21,9 @@ public class Song extends Audio {
 			break;
 		}
 	}
+	public MusicGender getgenderofmusic(){
+		return genderofmusic;
+	}
 	public String getalbum(){
 		return album;
 	}

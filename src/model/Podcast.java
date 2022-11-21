@@ -17,6 +17,9 @@ public class Podcast extends Audio {
 			break;
 		}
 	}
+	public PodcastCategory getcategory(){
+		return category;
+	}
 	public String getdescription(){
 		return description;
 	}

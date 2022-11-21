@@ -3,7 +3,9 @@ import java.util.ArrayList;
 public class Reproductionlist{
 	private String name;
 	private int code;
-	private ArrayList<Audio> Saveaudio; 
+	private ArrayList<Audio> Saveaudio;
+	/**
+	*/
 	public Reproductionlist(String name, int code){
 		this.name=name;
 		this.code=code;
@@ -23,17 +25,18 @@ public class Reproductionlist{
 	public void setcode(int code){
 		this.code = code;
 	}
-	
-	public int generateCode(){
-		int a=0;
-		return a;
-	}
+	/**
+	*/
 	public void createAudio(Podcast podcast){
 		Saveaudio.add(podcast);
 	}
+	/**
+	*/
 	public void createAudio(Song song){
 		Saveaudio.add(song);
 	}
+	/**
+	*/
 	public String showaudios(){
 		String message="",nameofaudio="";
 		for(int i=0;i<Saveaudio.size();i++){
@@ -42,10 +45,13 @@ public class Reproductionlist{
 		}
 		return message;
 	}
+	/**
+	*/
 	public void removeaudio(int audioselected){
 		Saveaudio.remove(audioselected);
 	}
-	
+	/**
+	*/
 	public int determinatematrix(int [][] code){
 		//resultado = Integer.parseInt(res);
 		String number1="";

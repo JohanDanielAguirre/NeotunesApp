@@ -7,9 +7,13 @@ public class CreatorContent extends Producer {
 		super(id, nickname, vinculationdate, name, photo, numvisualizations);
 		this.CreatedPodcast= new ArrayList<Podcast>();
 	}
+	/**
+	*/
 	public void addpodcast(String name,String coverpage,double durationtime,int numberOfReproduction,String description, int category){
 		CreatedPodcast.add(new Podcast(name,coverpage,durationtime,numberOfReproduction,description,category));
 	}
+	/**
+	*/
 	public boolean validatecreator(Podcast podcast){
 		boolean comprobant=false;
 		for(int i=0;i<CreatedPodcast.size();i++){
