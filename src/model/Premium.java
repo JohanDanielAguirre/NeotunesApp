@@ -7,6 +7,8 @@ public class Premium extends Consumer implements Buyable, Reproductionable{
 	private ArrayList<CreatorContent> podcastuser;
 	private ArrayList<Song> songreproduced;
 	private ArrayList<Podcast> podcastreproduced;
+	private ArrayList <Song> buyedsongs;
+	private ArrayList <Calendar> dateofbuyedsong;
 	public Premium(String id,String nickname,double podcasttimereproduced,double songtimereproduced,String mostlistenpodcastuser,String mostlistensonguser,String mostlistenpodcast,String mostlistensong,Calendar vinculationdate){
 		super(id,nickname, podcasttimereproduced, songtimereproduced, mostlistenpodcastuser, mostlistensonguser, mostlistenpodcast, mostlistensong, vinculationdate);
 		this.Createdlist= new ArrayList<Reproductionlist>();
@@ -14,12 +16,15 @@ public class Premium extends Consumer implements Buyable, Reproductionable{
 		this.podcastuser=new ArrayList<CreatorContent>();
 		this.songreproduced=new ArrayList<Song>();
 		this.podcastreproduced=new ArrayList<Podcast>();
+		this.buyedsongs=new ArrayList<Song>();
+		this.dateofbuyedsong= new ArrayList<Calendar>();
 	}
 	public ArrayList getCreatedlist(){
 		return Createdlist;
 	}
-	public String buysong(){
-		String a="";
+	public String buysong(Song song){
+		String a="cancion comprada correctamente";
+		
 		return a;
 	}
 	public String reproductionpodcast(Podcast podcast,CreatorContent creator){

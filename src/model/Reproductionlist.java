@@ -88,6 +88,7 @@ public class Reproductionlist{
 			}
 		}
 		determinate=Integer.parseInt(number1);
+		this.code=determinate;
 		return determinate;
 	}
 }

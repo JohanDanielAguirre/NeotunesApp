@@ -26,7 +26,7 @@ public class Standar extends Consumer implements Buyable, Reproductionable{
 	public ArrayList getCreatedlist(){
 		return Createdlist;
 	}
-	public String buysong(){
+	public String buysong(Song song){
 		String  a="";
 		return a;
 	}

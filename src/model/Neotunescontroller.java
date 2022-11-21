@@ -329,8 +329,34 @@ public class Neotunescontroller{
 				}
 			}
 		}
-		
-		
+		return message;
+	}
+	public String buysong(int audionumber,String nickname){
+		String message="";
+		boolean comprobant=false;
+		for(int i=0;i<users.size();i++){
+			if(users.get(i).getnickname().equalsIgnoreCase(nickname)){
+				comprobant=true;
+				if(users.get(i) instanceof Premium){
+					Premium user=(Premium)users.get(i);
+					if(audiocollection.get(audionumber) instanceof Song){
+						Song song=(Song)audiocollection.get(audionumber);
+						message=user.buysong(song);
+					}else{
+						message="no se pueden comprar podcast";
+					}
+				}else{
+					Standar user=(Standar)users.get(i);
+					if(audiocollection.get(audionumber) instanceof Song){
+					Song song=(Song)audiocollection.get(audionumber);
+					message=user.buysong(song);
+					}else{
+						message="no se pueden comprar podcast";
+					}
+				}
+				
+			}
+		}
 		return message;
 	}
 }

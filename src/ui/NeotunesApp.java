@@ -175,7 +175,20 @@ public class NeotunesApp {
 						 }while(cuantity>=i);
 				break;
 				case 5:
-					//more code
+				do{
+					System.out.println("ingrese el nickname del  usuario que desea comprar canciones");
+					nickname= sc.nextLine();
+					System.out.println("ingrese el documento del  usuario que comprar canciones");
+					id= sc.nextLine();
+					if(!Neo.searchuser(nickname,id)){
+						System.out.println("el usuario no existe");
+					}
+				}while(Neo.searchuser(nickname,id));
+					message=Neo.showaudios();
+					System.out.println(message);
+					System.out.println("ingrese la el numero del  audio que desea comprar");
+					cuantity= sc.nextInt();
+					Neo.buysong(cuantity,nickname);
 				break;
 				case 6:
 					//more code
