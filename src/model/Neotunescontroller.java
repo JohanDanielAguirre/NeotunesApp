@@ -383,10 +383,20 @@ public class Neotunescontroller{
 		return message;
 	}
 	/**
+	
+	
+	
+	
+	
 	*/
 	public String generateinform(String nickname){
-		String message="",gpodcast="",gsongs="";
-		int rpodcast=0,rsongs=0,agm=0,bgm=0,cgm=0,dgm=0,apc=0,bpc=0,cpc=0,dpc=0,asongs=0,bsongs=0,csongs=0,dsongs=0,apodcast=0,bpodcast=0,cpodcast=0,dpodcast=0;
+		String message="",gpodcast="",gsongs="",message2="",nametop1="",nametop2="",nametop3="",nametop4="",nametop5="";
+		int rpodcast=0,rsongs=0,agm=0,bgm=0,cgm=0,dgm=0,apc=0,bpc=0,cpc=0,dpc=0,asongs=0,bsongs=0,csongs=0,dsongs=0,apodcast=0,bpodcast=0,cpodcast=0,dpodcast=0,mostAudio=0;
+		int top1=0,top2=0,top3=0,top4=0,top5=0,a=0;
+		ArrayList<Artist> artists=new ArrayList<Artist>();
+		ArrayList<CreatorContent> creatorofcontent=new ArrayList<CreatorContent>();
+		ArrayList<Song> songs=new ArrayList<Song>();
+		ArrayList<Podcast> podcasts=new ArrayList<Podcast>();
 		for(int i=0;i<users.size();i++){
 			if(users.get(i) instanceof Consumer && users.get(i) instanceof Premium){
 				Premium user=(Premium) users.get(i);
@@ -398,17 +408,17 @@ public class Neotunescontroller{
 				rpodcast=user.listenpodcast();
 			}
 		}
-		message="el numero total de reproducciones son \n"
+		message=message+"el numero total de reproducciones son \n"
 		+"para las canciones " + rsongs + " para los podcasts "+ rpodcast;
 		message=" \n";
 		for(int i=0;i<users.size();i++){
 			if(users.get(i).getnickname().equalsIgnoreCase(nickname) && users.get(i) instanceof Consumer){
 				if(users.get(i) instanceof Premium){
 					Premium user=(Premium)users.get(i);
-					message="el usuario "+nickname+ " tiene como genero musical mas visto "+ user.gendermusic() + " y lo ha escuchado "+user.numbergendermusic() +" veces";
-					message="\n";
-					message="el usuario "+nickname+ " tiene como genero de podcast mas visto "+ user.genderpodcast() + " y lo ha escuchado "+user.numbergenderpodcast() +" veces";
-					message="\n";
+					message=message+"el usuario "+nickname+ " tiene como genero musical mas visto "+ user.gendermusic() + " y lo ha escuchado "+user.numbergendermusic() +" veces";
+					message=message+"\n";
+					message=message+"el usuario "+nickname+ " tiene como genero de podcast mas visto "+ user.genderpodcast() + " y lo ha escuchado "+user.numbergenderpodcast() +" veces";
+					message=message+"\n";
 				}else{
 					Standar user=(Standar)users.get(i);
 				}
@@ -497,8 +507,1421 @@ public class Neotunescontroller{
 					break;
 				}
 			}
+			if(users.get(i) instanceof Producer && users.get(i) instanceof Artist){
+				artists.add((Artist)users.get(i));
+			}else if(users.get(i) instanceof Producer && users.get(i) instanceof CreatorContent){
+				creatorofcontent.add((CreatorContent)users.get(i));
+			}
 		}
+		if(agm>bgm & agm>cgm & agm>dgm){
+			gsongs="Rock";
+		}else if(bgm>cgm & bgm>dgm){
+			gsongs="Pop";
+		}else if(cgm>dgm){
+			gsongs="Trap";
+		}else{
+			gsongs="House";
+		}
+		if(asongs>bsongs & asongs>csongs & asongs>dsongs){
+			mostAudio=asongs;
+		}else if(bsongs>csongs & bsongs>dsongs){
+			mostAudio=bsongs;
+		}else if(csongs>dsongs){
+			mostAudio=csongs;
+		}else{
+			mostAudio=dsongs;
+		}
+		message=message+"la categoria musical mas escuchada por los usuarios es "+gsongs +" y su cantidad de reproducciones es "+ mostAudio;
+		message=message+ "\n";
+		if(apc>bpc & apc>cpc & apc>dpc){
+			gpodcast="Politics";
+		}else if(bpc>cpc & bpc>dpc){
+			gpodcast="Entertaiment";
+		}else if(cpc>dpc){
+			gpodcast="Videogames";
+		}else{
+			gpodcast="Fashion";
+		}
+		if(apodcast>bpodcast & apodcast>cpodcast & apodcast>dpodcast){
+			mostAudio=apodcast;
+		}else if(bpodcast>cpodcast & bpodcast>dpodcast){
+			mostAudio=bpodcast;
+		}else if(cpodcast>dpodcast){
+			mostAudio=cpodcast;
+		}else{
+			mostAudio=dpodcast;
+		}
+		message=message+("la categoria musical mas escuchada por los usuarios es "+gpodcast +" y su cantidad de reproducciones es "+ mostAudio);
+		message=message+"\n";
+		message=message+"el top 5 de artistas esta compuesto por \n"
+		+"";
+		for(int i=0;i<users.size();i++){
+			if(users.get(i) instanceof Premium){
+				Premium user=(Premium) users.get(i);
+				for(int r=0;r<user.getsonguser().size();r++){
+					for(int p=0;p<user.getsonguser().size();p++){
+						if(user.getsonguser().get(r).equals(user.getsonguser().get(p))){
+							a++;
+						}
+					}
+					if(a>top1){
+						Artist artist=(Artist)user.getsonguser().get(r);
+						
+						top2=top1;
+						nametop2=nametop1;
+						top3=top2;
+						nametop3=nametop2;
+						top4=top3;
+						nametop4=nametop3;
+						top5=top4;
+						nametop5=nametop4;
+						top1=a;
+						nametop1=artist.getname();
+					}else if(a>top2){
+						Artist artist=(Artist)user.getsonguser().get(r);
+						
+						top3=top2;
+						nametop3=nametop2;
+						top4=top3;
+						nametop4=nametop3;
+						top5=top4;
+						nametop5=nametop4;
+						top2=a;
+						nametop2=artist.getname();
+					}
+					else if(a>top3){
+						Artist artist=(Artist)user.getsonguser().get(r);
+						
+						top4=top3;
+						nametop4=nametop3;
+						top5=top4;
+						nametop5=nametop4;
+						top3=a;
+						nametop3=artist.getname();
+					}
+					else if(a>top4){
+						Artist artist=(Artist)user.getsonguser().get(r);
+						
+						top5=top4;
+						nametop5=nametop4;
+						top4=a;
+						nametop4=artist.getname();
+					}else if(a>top5){
+						Artist artist=(Artist)user.getsonguser().get(r);
+						top5=a;
+						nametop5=artist.getname();
+					}
+					
+				}
+			}else if(users.get(i) instanceof Standar){
+				Standar user=(Standar) users.get(i);
+						for(int r=0;r<user.getsonguser().size();r++){
+					for(int p=0;p<user.getsonguser().size();p++){
+						if(user.getsonguser().get(r).equals(user.getsonguser().get(p))){
+							a++;
+						}
+					}
+					if(a>top1){
+						Artist artist=(Artist)user.getsonguser().get(r);
+						
+						top2=top1;
+						nametop2=nametop1;
+						top3=top2;
+						nametop3=nametop2;
+						top4=top3;
+						nametop4=nametop3;
+						top5=top4;
+						nametop5=nametop4;
+						top1=a;
+						nametop1=artist.getname();
+					}else if(a>top2){
+						Artist artist=(Artist)user.getsonguser().get(r);
+						
+						top3=top2;
+						nametop3=nametop2;
+						top4=top3;
+						nametop4=nametop3;
+						top5=top4;
+						nametop5=nametop4;
+						top2=a;
+						nametop2=artist.getname();
+					}
+					else if(a>top3){
+						Artist artist=(Artist)user.getsonguser().get(r);
+						
+						top4=top3;
+						nametop4=nametop3;
+						top5=top4;
+						nametop5=nametop4;
+						top3=a;
+						nametop3=artist.getname();
+					}
+					else if(a>top4){
+						Artist artist=(Artist)user.getsonguser().get(r);
+						
+						top5=top4;
+						nametop5=nametop4;
+						top4=a;
+						nametop4=artist.getname();
+					}else if(a>top5){
+						Artist artist=(Artist)user.getsonguser().get(r);
+						top5=a;
+						nametop5=artist.getname();
+					}
+					
+				}
+			}
+		}
+		message=message+ "el top 5 de los mejores artistas es \n"
+		+"top1:"+ nametop1+" con "+top1
+		+"\n"
+		+"top2:"+ nametop2+" con "+top2
+		+"\n"
+		+"top3:"+ nametop3+" con "+top3
+		+"\n"
+		+"top4:"+ nametop4+" con "+top4
+		+"\n"
+		+"top5:"+ nametop5+" con "+top5
+		+"\n";
 		
+		for(int i=0;i<users.size();i++){
+			if(users.get(i) instanceof Premium){
+				Premium user=(Premium) users.get(i);
+				for(int r=0;r<user.getpodcastuser().size();r++){
+					for(int p=0;p<user.getpodcastuser().size();p++){
+						if(user.getpodcastuser().get(r).equals(user.getpodcastuser().get(p))){
+							a++;
+						}
+					}
+					if(a>top1){
+						CreatorContent artist=(CreatorContent)user.getpodcastuser().get(r);
+						
+						top2=top1;
+						nametop2=nametop1;
+						top3=top2;
+						nametop3=nametop2;
+						top4=top3;
+						nametop4=nametop3;
+						top5=top4;
+						nametop5=nametop4;
+						top1=a;
+						nametop1=artist.getname();
+					}else if(a>top2){
+						CreatorContent artist=(CreatorContent)user.getpodcastuser().get(r);
+						
+						top3=top2;
+						nametop3=nametop2;
+						top4=top3;
+						nametop4=nametop3;
+						top5=top4;
+						nametop5=nametop4;
+						top2=a;
+						nametop2=artist.getname();
+					}
+					else if(a>top3){
+						CreatorContent artist=(CreatorContent)user.getpodcastuser().get(r);
+						
+						top4=top3;
+						nametop4=nametop3;
+						top5=top4;
+						nametop5=nametop4;
+						top3=a;
+						nametop3=artist.getname();
+					}
+					else if(a>top4){
+						CreatorContent artist=(CreatorContent)user.getpodcastuser().get(r);
+						
+						top5=top4;
+						nametop5=nametop4;
+						top4=a;
+						nametop4=artist.getname();
+					}else if(a>top5){
+						CreatorContent artist=(CreatorContent)user.getpodcastuser().get(r);
+						top5=a;
+						nametop5=artist.getname();
+					}
+					
+				}
+			}else if(users.get(i) instanceof Standar){
+				Standar user=(Standar) users.get(i);
+						for(int r=0;r<user.getpodcastuser().size();r++){
+					for(int p=0;p<user.getpodcastuser().size();p++){
+						if(user.getpodcastuser().get(r).equals(user.getpodcastuser().get(p))){
+							a++;
+						}
+					}
+					if(a>top1){
+						CreatorContent creator=(CreatorContent)user.getpodcastuser().get(r);
+						
+						top2=top1;
+						nametop2=nametop1;
+						top3=top2;
+						nametop3=nametop2;
+						top4=top3;
+						nametop4=nametop3;
+						top5=top4;
+						nametop5=nametop4;
+						top1=a;
+						nametop1=creator.getname();
+					}else if(a>top2){
+						CreatorContent creator =(CreatorContent)user.getpodcastuser().get(r);
+					
+						top3=top2;
+						nametop3=nametop2;
+						top4=top3;
+						nametop4=nametop3;
+						top5=top4;
+						nametop5=nametop4;
+							top2=a;
+						nametop2=creator.getname();
+					}
+					else if(a>top3){
+						CreatorContent creator =(CreatorContent)user.getpodcastuser().get(r);
+						
+						top4=top3;
+						nametop4=nametop3;
+						top5=top4;
+						nametop5=nametop4;
+						top3=a;
+						nametop3=creator.getname();
+					}
+					else if(a>top4){
+						CreatorContent creator =(CreatorContent)user.getpodcastuser().get(r);
+						top5=top4;
+						nametop5=nametop4;
+						top4=a;
+						nametop4=creator.getname();
+					}else if(a>top5){
+						CreatorContent creator =(CreatorContent)user.getpodcastuser().get(r);
+						top5=a;
+						nametop5=creator.getname();
+					}
+					
+				}
+			}
+		}
+		message=message+"el top 5 de los mejores creadores de contenido  es \n"
+		+"top1:"+ nametop1+" con "+top1
+		+"\n"
+		+"top2:"+ nametop2+" con "+top2
+		+"\n"
+		+"top3:"+ nametop3+" con "+top3
+		+"\n"
+		+"top4:"+ nametop4+" con "+top4
+		+"\n"
+		+"top5:"+ nametop5+" con "+top5
+		+"\n";
+		
+		int top6=0,top7=0,top8=0,top9=0,top10=0;
+		String nametop6="",nametop7="",nametop8="",nametop9="",nametop10="";
+		String cat1="",cat2="",cat3="",cat4="",cat5="",cat6="",cat7="",cat8="",cat9="",cat10="";
+		
+		for(int i=0;i<users.size();i++){
+			if(users.get(i) instanceof Premium){
+				Premium user=(Premium) users.get(i);
+			for(int r=0;r<user.getpodcastreproduced().size();r++){
+					for(int p=0;p<user.getpodcastreproduced().size();p++){
+						if(user.getpodcastreproduced().get(r).equals(user.getpodcastreproduced().get(p))){
+							a++;
+						}
+					}
+					if(a>top1){
+						Podcast art=(Podcast)user.getpodcastreproduced().get(r);
+						
+						
+						top2=top1;
+						nametop2=nametop1;
+						cat2=cat1;
+						
+						top3=top2;
+						nametop3=nametop2;
+						cat3=cat2;
+						
+						cat4=cat3;
+						top4=top3;
+						nametop4=nametop3;
+						
+						cat5=cat4;
+						top5=top4;
+						nametop5=nametop4;
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top1=a;
+						cat1=art.getcategory().name();
+						nametop1=art.getname();
+					}else if(a>top2){
+						Podcast art=(Podcast)user.getpodcastreproduced().get(r);
+						
+						
+						top3=top2;
+						nametop3=nametop2;
+						cat3=cat2;
+						
+						cat4=cat3;
+						top4=top3;
+						nametop4=nametop3;
+						
+						cat5=cat4;
+						top5=top4;
+						nametop5=nametop4;
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top2=a;
+						cat2=art.getcategory().name();
+						nametop2=art.getname();
+					}else if(a>top3){
+						Podcast art=(Podcast)user.getpodcastreproduced().get(r);
+						
+						
+						cat4=cat3;
+						top4=top3;
+						nametop4=nametop3;
+						
+						cat5=cat4;
+						top5=top4;
+						nametop5=nametop4;
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top3=a;
+						cat3=art.getcategory().name();
+						nametop3=art.getname();
+					}else if(a>top4){
+						Podcast art=(Podcast)user.getpodcastreproduced().get(r);
+						
+						
+						cat5=cat4;
+						top5=top4;
+						nametop5=nametop4;
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top4=a;
+						cat4=art.getcategory().name();
+						nametop4=art.getname();
+					}else if(a>top5){
+						Podcast art=(Podcast)user.getpodcastreproduced().get(r);
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top5=a;
+						cat5=art.getcategory().name();
+						nametop5=art.getname();
+					}else if(a>top6){
+						Podcast art=(Podcast)user.getpodcastreproduced().get(r);
+						
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top6=a;
+						cat6=art.getcategory().name();
+						nametop6=art.getname();
+					}else if(a>top7){
+						Podcast art=(Podcast)user.getpodcastreproduced().get(r);
+						
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top7=a;
+						cat7=art.getcategory().name();
+						nametop7=art.getname();
+					}else if(a>top8){
+						Podcast art=(Podcast)user.getpodcastreproduced().get(r);
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top8=a;
+						cat8=art.getcategory().name();
+						nametop8=art.getname();
+					}else if(a>top9){
+						Podcast art=(Podcast)user.getpodcastreproduced().get(r);
+						
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top9=a;
+						cat9=art.getcategory().name();
+						nametop9=art.getname();
+					}else if(a>top10){
+						Podcast art=(Podcast)user.getpodcastreproduced().get(r);
+						
+						top10=a;
+						cat10=art.getcategory().name();
+						nametop10=art.getname();
+					}
+			else if(users.get(i) instanceof Standar){
+				Standar userr=(Standar) users.get(i);
+				for(int z=0;z<userr.getpodcastreproduced().size();r++){
+					for(int p=0;p<userr.getpodcastreproduced().size();p++){
+						if(user.getpodcastreproduced().get(z).equals(user.getpodcastreproduced().get(p))){
+							a++;
+						}
+					}
+						if(a>top1){
+						Podcast art=(Podcast)userr.getpodcastreproduced().get(z);
+						
+						
+						top2=top1;
+						nametop2=nametop1;
+						cat2=cat1;
+						
+						top3=top2;
+						nametop3=nametop2;
+						cat3=cat2;
+						
+						cat4=cat3;
+						top4=top3;
+						nametop4=nametop3;
+						
+						cat5=cat4;
+						top5=top4;
+						nametop5=nametop4;
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top1=a;
+						cat1=art.getcategory().name();
+						nametop1=art.getname();
+					}else if(a>top2){
+						Podcast art=(Podcast)userr.getpodcastreproduced().get(z);
+						
+						
+						top3=top2;
+						nametop3=nametop2;
+						cat3=cat2;
+						
+						cat4=cat3;
+						top4=top3;
+						nametop4=nametop3;
+						
+						cat5=cat4;
+						top5=top4;
+						nametop5=nametop4;
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top2=a;
+						cat2=art.getcategory().name();
+						nametop2=art.getname();
+					}
+					else if(a>top3){
+						Podcast art=(Podcast)userr.getpodcastreproduced().get(z);
+						
+						
+						cat4=cat3;
+						top4=top3;
+						nametop4=nametop3;
+						
+						cat5=cat4;
+						top5=top4;
+						nametop5=nametop4;
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top3=a;
+						cat3=art.getcategory().name();
+						nametop3=art.getname();
+					}
+					else if(a>top4){
+						Podcast art=(Podcast)userr.getpodcastreproduced().get(z);
+						
+						
+						cat5=cat4;
+						top5=top4;
+						nametop5=nametop4;
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top4=a;
+						cat4=art.getcategory().name();
+						nametop4=art.getname();
+					}else if(a>top5){
+						Podcast art=(Podcast)userr.getpodcastreproduced().get(z);
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top5=a;
+						cat5=art.getcategory().name();
+						nametop5=art.getname();
+					}else if(a>top6){
+						Podcast art=(Podcast)userr.getpodcastreproduced().get(z);
+						
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top6=a;
+						cat6=art.getcategory().name();
+						nametop6=art.getname();
+					}else if(a>top7){
+						Podcast art=(Podcast)userr.getpodcastreproduced().get(z);
+						
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top7=a;
+						cat7=art.getcategory().name();
+						nametop7=art.getname();
+					}
+					
+				else if(a>top8){
+						Podcast art=(Podcast)userr.getpodcastreproduced().get(z);
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top8=a;
+						cat8=art.getcategory().name();
+						nametop8=art.getname();
+					}else if(a>top9){
+						Podcast art=(Podcast)userr.getpodcastreproduced().get(r);
+						
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top9=a;
+						cat9=art.getcategory().name();
+						nametop9=art.getname();
+					}else if(a>top10){
+						Podcast art=(Podcast)userr.getpodcastreproduced().get(z);
+						
+						top10=a;
+						cat10=art.getcategory().name();
+						nametop10=art.getname();
+					}
+				}
+					
+			}
+	}	
+			}
+		}
+		message=message+ "el top 10 de los mejores podcast  es \n"
+		+"top1:"+ cat1 +" "+nametop1+" "+ top1
+		+"\n"
+		+"top2:"+ cat2 +" "+nametop2+" "+ top2
+		+"\n"
+		+"top3:"+ cat3 +" "+nametop3+" "+ top3
+		+"\n"
+		+"top4:"+ cat4 +" "+nametop4+" "+ top4
+		+"\n"
+		+"top5:"+ cat5 +" "+nametop5+" "+ top5
+		+"\n"
+		+"top6:"+ cat6 +" "+nametop6+" "+ top6
+		+"\n"
+		+"top7:"+ cat7 +" "+nametop7+" "+ top7
+		+"\n"
+		+"top8:"+ cat8 +" "+nametop8+" "+ top8
+		+"\n"
+		+"top9:"+ cat9 +" "+nametop9+" "+ top9
+		+"\n"
+		+"top10:"+ cat10 +" "+nametop10+" "+ top10
+		+"\n";
+		
+		
+		for(int i=0;i<users.size();i++){
+			if(users.get(i) instanceof Premium){
+				Premium user=(Premium) users.get(i);
+			for(int r=0;r<user.getsongreproduced().size();r++){
+					for(int p=0;p<user.getsongreproduced().size();p++){
+						if(user.getsongreproduced().get(r).equals(user.getsongreproduced().get(p))){
+							a++;
+						}
+					}
+					if(a>top1){
+						Song art=(Song)user.getsongreproduced().get(r);
+						
+						
+						top2=top1;
+						nametop2=nametop1;
+						cat2=cat1;
+						
+						top3=top2;
+						nametop3=nametop2;
+						cat3=cat2;
+						
+						cat4=cat3;
+						top4=top3;
+						nametop4=nametop3;
+						
+						cat5=cat4;
+						top5=top4;
+						nametop5=nametop4;
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top1=a;
+						cat1=art.getgenderofmusic().name();
+						nametop1=art.getname();
+					}else if(a>top2){
+						Song art=(Song)user.getsongreproduced().get(r);
+						
+						
+						top3=top2;
+						nametop3=nametop2;
+						cat3=cat2;
+						
+						cat4=cat3;
+						top4=top3;
+						nametop4=nametop3;
+						
+						cat5=cat4;
+						top5=top4;
+						nametop5=nametop4;
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top2=a;
+						cat2=art.getgenderofmusic().name();
+						nametop2=art.getname();
+					}else if(a>top3){
+						Song art=(Song)user.getsongreproduced().get(r);
+						
+						cat4=cat3;
+						top4=top3;
+						nametop4=nametop3;
+						
+						cat5=cat4;
+						top5=top4;
+						nametop5=nametop4;
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top3=a;
+						cat3=art.getgenderofmusic().name();
+						nametop3=art.getname();
+					}else if(a>top4){
+						Song art=(Song)user.getsongreproduced().get(r);
+						cat5=cat4;
+						top5=top4;
+						nametop5=nametop4;
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top4=a;
+						cat4=art.getgenderofmusic().name();
+						nametop4=art.getname();
+					}else if(a>top5){
+						Song art=(Song)user.getsongreproduced().get(r);
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top5=a;
+						cat5=art.getgenderofmusic().name();
+						nametop5=art.getname();
+					}else if(a>top6){
+						Song art=(Song)user.getsongreproduced().get(r);
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top6=a;
+						cat6=art.getgenderofmusic().name();
+						nametop6=art.getname();
+					}else if(a>top7){
+						Song art=(Song)user.getsongreproduced().get(r);
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top7=a;
+						cat7=art.getgenderofmusic().name();
+						nametop7=art.getname();
+					}else if(a>top8){
+					Song art=(Song)user.getsongreproduced().get(r);
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top8=a;
+						cat8=art.getgenderofmusic().name();
+						nametop8=art.getname();
+					}else if(a>top9){
+						Song art=(Song)user.getsongreproduced().get(r);
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top9=a;
+						cat9=art.getgenderofmusic().name();
+						nametop9=art.getname();
+					}else if(a>top10){
+						Song art=(Song)user.getsongreproduced().get(r); 	
+						top10=a;
+						cat10=art.getgenderofmusic().name();
+						nametop10=art.getname();
+					}
+			else if(users.get(i) instanceof Standar){
+				Standar userr=(Standar) users.get(i);
+				for(int z=0;z<userr.getsongreproduced().size();r++){
+					for(int p=0;p<userr.getsongreproduced().size();p++){
+						if(user.getsongreproduced().get(z).equals(user.getsongreproduced().get(p))){
+							a++;
+						}
+					}
+						if(a>top1){
+						Song art=(Song)userr.getsongreproduced().get(z);
+						
+						
+						top2=top1;
+						nametop2=nametop1;
+						cat2=cat1;
+						
+						top3=top2;
+						nametop3=nametop2;
+						cat3=cat2;
+						
+						cat4=cat3;
+						top4=top3;
+						nametop4=nametop3;
+						
+						cat5=cat4;
+						top5=top4;
+						nametop5=nametop4;
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top1=a;
+						cat1=art.getgenderofmusic().name();
+						nametop1=art.getname();
+					}else if(a>top2){
+						Song art=(Song)userr.getsongreproduced().get(z);
+						
+						
+						top3=top2;
+						nametop3=nametop2;
+						cat3=cat2;
+						
+						cat4=cat3;
+						top4=top3;
+						nametop4=nametop3;
+						
+						cat5=cat4;
+						top5=top4;
+						nametop5=nametop4;
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top2=a;
+						cat2=art.getgenderofmusic().name();
+						nametop2=art.getname();
+					}
+					else if(a>top3){
+						Song art=(Song)userr.getsongreproduced().get(z);
+						
+						
+						cat4=cat3;
+						top4=top3;
+						nametop4=nametop3;
+						
+						cat5=cat4;
+						top5=top4;
+						nametop5=nametop4;
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top3=a;
+						cat3=art.getgenderofmusic().name();
+						nametop3=art.getname();
+					}
+					else if(a>top4){
+						Song art=(Song)userr.getsongreproduced().get(z);
+						
+						
+						cat5=cat4;
+						top5=top4;
+						nametop5=nametop4;
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top4=a;
+						cat4=art.getgenderofmusic().name();
+						nametop4=art.getname();
+					}else if(a>top5){
+						Song art=(Song)userr.getsongreproduced().get(z);
+						
+						top6=top5;
+						nametop6=nametop5;
+						cat6=cat5;
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top5=a;
+						cat5=art.getgenderofmusic().name();
+						nametop5=art.getname();
+					}else if(a>top6){
+						Song art=(Song)userr.getsongreproduced().get(z);
+						
+						
+						top7=top6;
+						nametop7=nametop6;
+						cat7=cat6;
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top6=a;
+						cat6=art.getgenderofmusic().name();
+						nametop6=art.getname();
+					}else if(a>top7){
+						Song art=(Song)userr.getsongreproduced().get(z);
+						
+						
+						cat8=cat7;
+						top8=top7;
+						nametop8=nametop7;
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top7=a;
+						cat7=art.getgenderofmusic().name();
+						nametop7=art.getname();
+					}
+					
+				else if(a>top8){
+						Song art=(Song)userr.getsongreproduced().get(z);
+						
+						cat9=cat8;
+						top9=top8;
+						nametop9=nametop8;
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top8=a;
+						cat8=art.getgenderofmusic().name();
+						nametop8=art.getname();
+					}else if(a>top9){
+						Song art=(Song)userr.getsongreproduced().get(z);
+						
+						
+						cat10=cat9;
+						top10=top9;
+						nametop10=nametop9;
+						
+						top9=a;
+						cat9=art.getgenderofmusic().name(); 
+						nametop9=art.getname();
+					}else if(a>top10){
+						Song art=(Song)userr.getsongreproduced().get(z);
+						top10=a;
+						cat10=art.getgenderofmusic().name();
+						nametop10=art.getname();
+					}
+				}
+					
+			}
+	}	
+			}
+		}
+		message=message+ "el top 10 de las mejores canciones  es \n"
+		+"top1:"+ cat1 +" "+nametop1+" "+ top1
+		+"\n"
+		+"top2:"+ cat2 +" "+nametop2+" "+ top2
+		+"\n"
+		+"top3:"+ cat3 +" "+nametop3+" "+ top3
+		+"\n"
+		+"top4:"+ cat4 +" "+nametop4+" "+ top4
+		+"\n"
+		+"top5:"+ cat5 +" "+nametop5+" "+ top5
+		+"\n"
+		+"top6:"+ cat6 +" "+nametop6+" "+ top6
+		+"\n"
+		+"top7:"+ cat7 +" "+nametop7+" "+ top7
+		+"\n"
+		+"top8:"+ cat8 +" "+nametop8+" "+ top8
+		+"\n"
+		+"top9:"+ cat9 +" "+nametop9+" "+ top9
+		+"\n"
+		+"top10:"+ cat10 +" "+nametop10+" "+ top10
+		+"\n";
+		
+		for(int p=0;audiocollection.size();p++){
+			if(audiocollection.get(p) instanceof Song){
+				Song song=(Song) audiocollection.get(p);
+				message2=song.getgenderofmusic().name();
+				switch(message2){
+					case "ROCK":
+					agm++;
+					asongs=user.numbergendermusic();
+					break;
+					case "POP":
+					bgm++;
+					bsongs=user.numbergendermusic();
+					break;
+					case "TRAP":
+					cgm++;
+					csongs=user.numbergendermusic();
+					break;
+					case "HOUSE":
+					dgm++;
+					dsongs=user.numbergendermusic();
+					break;
+				}
+			}
+		}
 		return message;
 	}
+	
 }

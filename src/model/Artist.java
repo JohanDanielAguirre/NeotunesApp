@@ -7,6 +7,9 @@ public class Artist extends Producer {
 		super(id, nickname, vinculationdate, name, photo, numvisualizations);
 		 this.Createdsongs= new ArrayList<Song>();
 	}
+	public ArrayList Createdsongs(){
+		return Createdsongs;
+	}
 	public void addsong(String name,String coverpage,double durationtime,int numberOfReproduction,String album,double value,int unitssold,int category){
 		Createdsongs.add(new Song(name,coverpage,durationtime,numberOfReproduction,album,value,unitssold,category));
 	}

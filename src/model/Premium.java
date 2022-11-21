@@ -21,6 +21,21 @@ public class Premium extends Consumer implements Buyable, Reproductionable{
 		this.buyedsong=new ArrayList<Song>();
 		this.dateofbuyedsong= new ArrayList<Calendar>();
 	}
+	public ArrayList getsonguser(){
+		return songuser;
+	}
+	public  String getname(int r){
+		return songuser.get(r).getname();
+	}
+	public ArrayList getpodcastuser(){
+		return podcastuser;
+	}
+	public ArrayList getsongreproduced(){
+		return songreproduced;
+	} 
+	public ArrayList getpodcastreproduced(){
+		return podcastreproduced;
+	}
 	/**
 	*/
 	public String buysong(Song song){
