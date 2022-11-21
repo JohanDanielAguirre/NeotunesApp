@@ -1896,31 +1896,107 @@ public class Neotunescontroller{
 		+"\n"
 		+"top10:"+ cat10 +" "+nametop10+" "+ top10
 		+"\n";
-		
-		for(int p=0;audiocollection.size();p++){
-			if(audiocollection.get(p) instanceof Song){
-				Song song=(Song) audiocollection.get(p);
-				message2=song.getgenderofmusic().name();
-				switch(message2){
-					case "ROCK":
-					agm++;
-					asongs=user.numbergendermusic();
-					break;
-					case "POP":
-					bgm++;
-					bsongs=user.numbergendermusic();
-					break;
-					case "TRAP":
-					cgm++;
-					csongs=user.numbergendermusic();
-					break;
-					case "HOUSE":
-					dgm++;
-					dsongs=user.numbergendermusic();
-					break;
+		int counter1=0, counter2=0, counter3=0, counter4=0;
+		double countermoney1=0,countermoney2=0,countermoney3=0,countermoney4=0;
+				for(int i=0;i<users.size();i++)
+					{
+						if(users.get(i) instanceof Premium){
+							Premium user=(Premium)users.get(i);
+							for(int l=0;l<user.getbuyedsong().size();l++){
+								Song song =(Song)user.getbuyedsong().get(l);
+								message2=song.getgenderofmusic().name();
+								switch(message2){
+									case "ROCK":
+										counter1++;
+										countermoney1=countermoney1+song.getvalue();
+									break;
+									case "POP":
+										counter2++;
+										countermoney2=countermoney1+song.getvalue();
+									break;
+									case "TRAP":
+										counter3++;
+										countermoney3=countermoney1+song.getvalue();
+									break;
+									case "HOUSE":
+										counter4++;
+										countermoney4=countermoney1+song.getvalue();
+									break;
+								}
+							}
+						}else if(users.get(i) instanceof Standar){
+							Standar user=(Standar)users.get(i);
+							for(int l=0;l<user.getbuyedsong().size();l++){
+								Song song =(Song)user.getbuyedsong().get(l);
+								message2=song.getgenderofmusic().name();
+								switch(message2){
+									case "ROCK":
+										counter1++;
+										countermoney1=countermoney1+song.getvalue();
+									break;
+									case "POP":
+										counter2++;
+										countermoney2=countermoney1+song.getvalue();
+									break;
+									case "TRAP":
+										counter3++;
+										countermoney3=countermoney1+song.getvalue();
+									break;
+									case "HOUSE":
+										counter4++;
+										countermoney4=countermoney1+song.getvalue();
+									break;
+								}
+							}
+							
+						}
+					}			
+				message=message+"las ventas por genero fueron las siguientes"
+				+"\n"
+				+"Rock "+ counter1+ " valor de las ventas "+ countermoney1
+				+"\n"
+				+"Pop "+ counter2+ " valor de las ventas "+ countermoney2
+				+"\n"
+				+"Trap "+ counter3+ " valor de las ventas "+ countermoney3
+				+"\n"
+				+"House "+ counter4+ " valor de las ventas "+ countermoney4
+				+"\n";
+				int counter=0,number=0;
+				double values=0;
+				String songname="";
+				for(int i=0;i<audiocollection.size();i++){
+					counter=0;
+					if(audiocollection.get(i) instanceof Song){
+						Song song=(Song) audiocollection.get(i);
+						for(int k=0;k<users.size();k++){
+						if(users.get(k) instanceof Premium){
+							Premium user=(Premium) users.get(k);
+							for(int m=0;m<user.getbuyedsong().size();m++){
+								Song buysong=(Song) user.getbuyedsong().get(m);
+								if(song.equals(buysong)){
+									counter++;
+									
+								}
+							}
+							
+						}else if(users.get(k) instanceof Standar){
+							Standar user=(Standar) users.get(k);
+							for(int m=0;m<user.getbuyedsong().size();m++){
+								Song buysong=(Song) user.getbuyedsong().get(m);
+								if(song.equals(buysong)){
+									counter++;
+									
+								}
+							}
+						}
+						if(counter>number){
+							number=counter;
+							values=song.getvalue();
+						}
+					}
+					}
 				}
-			}
-		}
+				message=message+"la cancion mas vendida tuvo en su haber "+number +" ventas y su valor final fue de "+ (values*number);
 		return message;
 	}
 	

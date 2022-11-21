@@ -69,20 +69,17 @@ public class NeotunesApp {
 				break;
 				case 3:
 					i=0;
-					do{
 						System.out.println("ingrese el nickname del  usuario que desea realizar acciones con las playlist");
+						nickname= sc.nextLine();
 						nickname= sc.nextLine();
 						System.out.println("ingrese el documento del  usuario que desea realizar acciones con las playlist");
 						id= sc.nextLine();
-						if(!Neo.searchuser(nickname,id)){
-							System.out.println("el usuario no existe");
-						}
-					}while(Neo.searchuser(nickname,id));
 					System.out.println("ingrese la funcion que desea realizar\n"
 					+"1. agregar listas de reproduccion a un usuario\n"
 					+"2. adicionar audios de la lista\n"
 					+"3. eliminar audios de la lista\n"
-					+"4. compartir una lista de reproduccion\n");
+					+"4. compartir una lista de reproduccion\n"
+					+"5.salir");
 					position= sc.nextInt();
 					switch(position){
 						case 1:
@@ -136,6 +133,9 @@ public class NeotunesApp {
 						 i=Neo.sharelist(selection,nickname,codification);
 						 System.out.println("su codigo para compartir la cancion es "+i);
 						break;
+						case 5:
+						
+						break;
 					}
 					
 				break;
@@ -144,12 +144,13 @@ public class NeotunesApp {
 					do{
 						System.out.println("ingrese el nickname del  usuario que desea  reproducir");
 						nickname= sc.nextLine();
+						nickname= sc.nextLine();
 						System.out.println("ingrese el documento del  usuario que desea reproducir");
 						id= sc.nextLine();
 						if(!Neo.searchuser(nickname,id)){
 							System.out.println("el usuario no existe");
 						}
-					}while(Neo.searchuser(nickname,id));
+					}while(!Neo.searchuser(nickname,id));
 						message=Neo.showaudios();
 						 System.out.println(message);
 						 System.out.println("ingrese la cantidad de audios que desea reproducr");
@@ -178,12 +179,13 @@ public class NeotunesApp {
 				do{
 					System.out.println("ingrese el nickname del  usuario que desea comprar canciones");
 					nickname= sc.nextLine();
+					nickname= sc.nextLine();
 					System.out.println("ingrese el documento del  usuario que comprar canciones");
 					id= sc.nextLine();
 					if(!Neo.searchuser(nickname,id)){
 						System.out.println("el usuario no existe");
 					}
-				}while(Neo.searchuser(nickname,id));
+				}while(!Neo.searchuser(nickname,id));
 					message=Neo.showaudios();
 					System.out.println(message);
 					System.out.println("ingrese la el numero del  audio que desea comprar");
@@ -210,7 +212,7 @@ public class NeotunesApp {
 					System.out.println("ingrese una opcion valida");
 				break;
 			}
-		}while(position!=10);
+		}while(position!=7);
 	}
 	/**
 	*<b>name:</b> registeruser<br>
@@ -284,6 +286,7 @@ public class NeotunesApp {
 		boolean comprobant=false;
 		System.out.println("ingrese el nombre del usuario que creo el contenido");
 		nameuser= sc.nextLine();
+		nameuser= sc.nextLine();
 		System.out.println("ingrese el nombre del contenido");
 		name= sc.nextLine();
 		System.out.println("ingrese el URL de la foto de la portada");
@@ -304,6 +307,7 @@ public class NeotunesApp {
 			}while(!comprobant);
 			if(option==1){
 				System.out.println("ingrese el album al que pertenece");
+				album= sc.nextLine();
 				album= sc.nextLine();
 				System.out.println("ingrese el valor del album");
 				value=sc.nextDouble();

@@ -36,6 +36,9 @@ public class Premium extends Consumer implements Buyable, Reproductionable{
 	public ArrayList getpodcastreproduced(){
 		return podcastreproduced;
 	}
+	public ArrayList getbuyedsong(){
+		return buyedsong;
+	}
 	/**
 	*/
 	public String buysong(Song song){

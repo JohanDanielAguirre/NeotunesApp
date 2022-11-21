@@ -44,6 +44,9 @@ public class Standar extends Consumer implements Buyable, Reproductionable{
 	public ArrayList getpodcastreproduced(){
 		return podcastreproduced;
 	}
+	public ArrayList getbuyedsong(){
+		return buyedsong;
+	}
 	public String buysong(Song song){
 		String a="cancion comprada correctamente";
 		if(buyedsong.size()<101){
