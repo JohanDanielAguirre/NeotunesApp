@@ -120,6 +120,11 @@ public class Neotunescontroller{
 		return message;
 	}
 	/**
+	*name:addReproductionlists
+	*@param list name is the name of the list will be created
+	*@param usernickname is the nickname of the user will be associated the list
+	*@param list code is the code of the list have utility in the time of share
+	*@return message with confirmation
 	*/
 	public String addreproductionlist(String listname,String usernickname,int listcode){
 		String message="no se pudo registrar la lista de reproduccion por que el usuario es productor";
@@ -132,6 +137,9 @@ public class Neotunescontroller{
 		return message;
 	}
 	/**
+	*name: showlists
+	*@param nickname the nickname of the user who wants to make the inquiry
+	*@return message a String  with the information about all the playlist
 	*/
 	public String showlists(String nickname){
 		String message="";
@@ -144,6 +152,8 @@ public class Neotunescontroller{
 		return message;
 	}
 	/**
+	*name: showaudios
+	*@return message a String  with the information about all the audios
 	*/
 	public String showaudios(){
 		String message="";
@@ -153,6 +163,11 @@ public class Neotunescontroller{
 		return message;
 	}
 	/**
+	*name:addReproductionlists
+	*@param list name is the name of the list will be selected
+	*@param nickname is the nickname of the user will be associated the list
+	*@param position is the code of the audio to be added
+	*@return message with confirmation
 	*/
 	public String addAudiostoreproductionlits(int listselected,int position,String nickname){
 		String message="audio adicionado correctamente";
@@ -178,6 +193,10 @@ public class Neotunescontroller{
 		return message;
 	}
 	/**
+	*name:showaudiosinalist
+	*@param selection is the number of the audio will be selected
+	*@param nickname is the nickname of the user will be associated the list
+	*@return message with the audios in the list
 	*/
 	public String showaudiosinalist(String nickname, int selection){
 		String message="";
@@ -190,6 +209,11 @@ public class Neotunescontroller{
 		return message;
 	}
 	/**
+	*name:removeAudiostoreproductionlits
+	*@param position is the number of the audio will be selected
+	*@param nickname is the nickname of the user will be associated the list
+	*@param listselected is the number of the list will be remove an audio
+	*@return message with the confirmation
 	*/
 	public String removeAudiostoreproductionlits(int listselected,int position,String nickname){
 		String message="audio removido correctamente";
@@ -202,6 +226,10 @@ public class Neotunescontroller{
 		return message;
 	}
 	/**
+	*name:sponsor
+	*@param audionumber is the number of the audio will be selected
+	*@param nickname is the nickname of the user will be associated the audio and the sponsors
+	*@return message with the sponsor in the pertinent case
 	*/
 	public String sponsor(String nickname,int audionumber){
 		String message="";
@@ -223,6 +251,10 @@ public class Neotunescontroller{
 		return message;
 	}
 	/**
+	*name:reproduce
+	*@param audionumber is the number of the audio will be selected
+	*@param nickname is the nickname of the user will be associated the audio and the sponsors
+	*@return message with the sponsor in the pertinent case
 	*/
 	public String reproduce(String nickname,int audionumber){
 		String message="",nameofcreator="";
@@ -294,6 +326,10 @@ public class Neotunescontroller{
 		return message;
 	}
 	/**
+	*name:timesponsor
+	*@param numberofsponsor is the number of the sponsor will be selected
+	*@param nickname is the nickname of the user will be associated with the sponsors
+	*@return numberofsponsor with the time of the sponsor sponsor in the pertinent case
 	*/
 	public double timesponsor(String nickname,double numberofsponsor){
 		if (numberofsponsor!=0){
@@ -309,7 +345,10 @@ public class Neotunescontroller{
 		}
 		return numberofsponsor;
 	}
-	/**
+/**
+	*name:sharematrix
+	*@param matrix is the matrix to be determinate the code of the list
+	*@return messagewith the matrix
 	*/
 	public String sharematrix(int [][]matrix){
 		String message="";
@@ -333,6 +372,11 @@ public class Neotunescontroller{
 		return message;
 	}
 	/**
+	*name:sharelist
+	*@param nickname is the nickname of the user will be associated the list
+	*@param codification is the matrix with the code
+	*@param listselected is the number of the list will be share
+	*@return message with the final code
 	*/
 	public int sharelist(int listselected,String nickname,int [][]codification){
 		int message=0;
@@ -353,6 +397,10 @@ public class Neotunescontroller{
 		return message;
 	}
 	/**
+	*name:buysong
+	*@param audionumber is the number of the audio will be sell
+	*@param nickname is the nickname of the user will be associated the audio 
+	*@return message with the confirmation
 	*/
 	public String buysong(int audionumber,String nickname){
 		String message="";
@@ -382,12 +430,10 @@ public class Neotunescontroller{
 		}
 		return message;
 	}
-	/**
-	
-	
-	
-	
-	
+/**
+	*name:generateinform
+	*@param nickname is the nickname of the user will be inform
+	*@return message with the inform
 	*/
 	public String generateinform(String nickname){
 		String message="",gpodcast="",gsongs="",message2="",nametop1="",nametop2="",nametop3="",nametop4="",nametop5="";

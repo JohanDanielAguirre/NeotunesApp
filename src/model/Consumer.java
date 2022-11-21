@@ -8,6 +8,19 @@ public abstract class  Consumer extends User{
 	private String mostlistensonguser;
 	private String mostlistenpodcast;
 	private String mostlistensong;
+	/**
+	*name: Consumer
+	*builder of Consumer
+	*@param id a String will save de identifier of the artist
+	*@param nickname String with the user name inside the platafform
+	*@param podcasttimereproduced double will save the time  of the person wast watching podcast
+	*@param songtimereproduced double will save the time  of the person wast earing	songs
+	*@param mostlistenpodcastuser String will save the name  of the person user see more
+	*@param mostlistensonguser String will save the name  of the person user see more
+	*@param mostlistenpodcast String will save the name  of the podcast user see more
+	*@param mostlistensong String will save the name  of the song user see more
+	*@param vinculationdate is a calendar date will saev the exactly moment when the user will be register
+	*/
 	public Consumer(String id,String nickname,double podcasttimereproduced,double songtimereproduced,String mostlistenpodcastuser,String mostlistensonguser,String mostlistenpodcast,String mostlistensong,Calendar vinculationdate){
 		super(id,nickname,vinculationdate);
 		this.podcasttimereproduced=podcasttimereproduced;

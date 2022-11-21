@@ -253,6 +253,7 @@ public class NeotunesApp {
 			case 2:
 				System.out.println("por favor escriba su nombre real");
 				name=sc.nextLine();
+				name=sc.nextLine();
 				System.out.println("por favor coloque su foto de perfil");
 				photo=sc.nextLine();
 				do{

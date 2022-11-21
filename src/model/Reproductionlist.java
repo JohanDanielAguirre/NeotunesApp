@@ -5,6 +5,11 @@ public class Reproductionlist{
 	private int code;
 	private ArrayList<Audio> Saveaudio;
 	/**
+	*name: Reproductionlist <br>
+	*builder of Reproductionlist<br>
+	*@param name is a String that will be in charge of keeping the name of the list
+	*@param code is an int that will be in charge of kepping the unique code to share the list
+	* <b> post:</b> a Reproductionlist object will be created<br>
 	*/
 	public Reproductionlist(String name, int code){
 		this.name=name;
@@ -26,16 +31,27 @@ public class Reproductionlist{
 		this.code = code;
 	}
 	/**
+	*name: createAudio<br>
+	*@param podcast the a podcast object to be added to the list
+	*<b>pre:</b> the podcast will be exist
+	*<b>post:</b> a podcast will be added to the list
 	*/
 	public void createAudio(Podcast podcast){
 		Saveaudio.add(podcast);
 	}
 	/**
+	*name: createAudio<br>
+	*@param song the a song object to be added to the list
+	*<b>pre:</b> the song will be exist
+	*<b>post:</b> a song will be added to the list
 	*/
 	public void createAudio(Song song){
 		Saveaudio.add(song);
 	}
 	/**
+	*name: showaudios
+	*<b>post:</b> a text will be deploy
+	*@return message a String will save the message of the audio
 	*/
 	public String showaudios(){
 		String message="",nameofaudio="";
@@ -46,11 +62,15 @@ public class Reproductionlist{
 		return message;
 	}
 	/**
+	*name: removeaudio
 	*/
 	public void removeaudio(int audioselected){
 		Saveaudio.remove(audioselected);
 	}
 	/**
+	*name: determinatematrix
+	*@param code is the matrix to which the code will be generated.
+	*@return determinaet a int with the respective code
 	*/
 	public int determinatematrix(int [][] code){
 		//resultado = Integer.parseInt(res);

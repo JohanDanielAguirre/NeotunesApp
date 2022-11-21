@@ -15,6 +15,20 @@ public class Standar extends Consumer implements Buyable, Reproductionable{
 	private ArrayList <Song> buyedsong;
 	private ArrayList <Calendar> dateofbuyedsong;
 	/**
+	*name: Standar
+	*builder of Standar
+	*@param id a String will save de identifier of the artist
+	*@param nickname String with the user name inside the platafform
+	*@param podcasttimereproduced double will save the time  of the person wast watching podcast
+	*@param songtimereproduced double will save the time  of the person wast earing	songs
+	*@param mostlistenpodcastuser String will save the name  of the person user see more
+	*@param mostlistensonguser String will save the name  of the person user see more
+	*@param mostlistenpodcast String will save the name  of the podcast user see more
+	*@param mostlistensong String will save the name  of the song user see more
+	*@param vinculationdate is a calendar date will saev the exactly moment when the user will be register
+	*@param buyedsongs is the number of buyed songs 
+	*@param albumscreated is the number of albums created
+	*@ int numberofsongsreproduced is the counter of how many times you reproduce something
 	*/
 	public Standar(String id,String nickname,double podcasttimereproduced,double songtimereproduced,String mostlistenpodcastuser,String mostlistensonguser,String mostlistenpodcast,String mostlistensong,Calendar vinculationdate, int buyedsongs, int albumscreated,int numberofsongsreproduced){
 		super(id,nickname, podcasttimereproduced, songtimereproduced, mostlistenpodcastuser, mostlistensonguser, mostlistenpodcast, mostlistensong, vinculationdate);
@@ -47,6 +61,11 @@ public class Standar extends Consumer implements Buyable, Reproductionable{
 	public ArrayList getbuyedsong(){
 		return buyedsong;
 	}
+	/**
+	*name: buysong
+	*@param song is the song will be sell
+	*@return a message with the confirmation of the pay
+	*/
 	public String buysong(Song song){
 		String a="cancion comprada correctamente";
 		if(buyedsong.size()<101){
@@ -57,6 +76,10 @@ public class Standar extends Consumer implements Buyable, Reproductionable{
 		}
 		return a;
 	}
+	/**
+	*name: generatesponsor
+	*@return an ramdon sponsor to be watched
+	*/
 	public String generatesponsor(){
 		String message="";
 		int a=0;
@@ -73,6 +96,10 @@ public class Standar extends Consumer implements Buyable, Reproductionable{
 		}
 		return message;
 	}
+		/**
+	*name: timesponsors
+	*@return the duration of the sponsor
+	*/
 	public double timesponsors(double sponsor){
 		int number=0;
 		number=(int) sponsor;
@@ -88,6 +115,10 @@ public class Standar extends Consumer implements Buyable, Reproductionable{
 		}
 		return sponsor;
 	}
+		/**
+	*name: reproductionpodcast
+	*@return message with the confirmation of the listen podcast
+	*/
 	public String reproductionpodcast(Podcast podcast,CreatorContent creator){
 		String message="reproduciendo podcast.....";
 		double d=0;
@@ -133,7 +164,10 @@ public class Standar extends Consumer implements Buyable, Reproductionable{
 		}
 		return message;
 	}
-	
+		/**
+	*name: reproductionsong
+	*@return message with the confirmation of the listen song
+	*/
 	public String reproductionsong(Song song,Artist creator){
 		double d=0;
 		int a=0,b=0;
@@ -198,6 +232,12 @@ public class Standar extends Consumer implements Buyable, Reproductionable{
 	public void setnumberofsongsreproduced(int numberofsongsreproduced){
 		this.numberofsongsreproduced = numberofsongsreproduced;
 	}
+	/**
+	*name: addReproductionlists
+	*@param listname is the name of the will be created
+	*@param listcode is the code of the new list with the function of share
+	*@return message a String with confirmation 
+	*/
 	public String addReproductionlists(String listname,int listcode){
 		String message="la lista de reproduccion no fue registrada correctamente dado que se le acabaron las listas de reproduccion disponibles";
 		if(albumscreated<=20){
@@ -207,6 +247,10 @@ public class Standar extends Consumer implements Buyable, Reproductionable{
 		}
 		return message;
 	}
+	/**
+	name:showlists
+	@return will return a String with every user lists 
+	*/
 	public  String showlists(){
 		String message="",nameoflist="";
 		for(int i=0;i<Createdlist.size();i++){
@@ -230,6 +274,8 @@ public class Standar extends Consumer implements Buyable, Reproductionable{
 		Createdlist.get(listselected).removeaudio(numberofaudiotodelete);
 	}
 	/**
+	*name: listensongs
+	*@return int with the count of the number of reproducition song
 	*/
 	public int listensongs(){
 		int a=0;
@@ -239,6 +285,8 @@ public class Standar extends Consumer implements Buyable, Reproductionable{
 		return a;
 	}
 	/**
+	*name: listenpodcast
+	*@return int with the count of the number of reproducition podcast
 	*/
 	public int listenpodcast(){
 		int a=0;
@@ -248,6 +296,8 @@ public class Standar extends Consumer implements Buyable, Reproductionable{
 		return a;
 	}
 	/**
+	*name: gendermusic
+	*@return String with the gender with most cuantity of song
 	*/
 	public String gendermusic(){
 		int a=0,b=0,c=0,d=0;
@@ -281,6 +331,8 @@ public class Standar extends Consumer implements Buyable, Reproductionable{
 		return gender;
 	}
 	/**
+	*name: genderpodcast
+	*@return String with the gender with most cuantity of podcast
 	*/
 	public String genderpodcast(){
 		int a=0,b=0,c=0,d=0;
@@ -314,6 +366,8 @@ public class Standar extends Consumer implements Buyable, Reproductionable{
 		return gender;
 	}
 	/**
+	*name: numbergendermusic
+	*@return number with the gender with most cuantity of songs
 	*/
 	public int numbergendermusic(){
 		int a=0,b=0,c=0,d=0,listencategory=0;
@@ -347,6 +401,8 @@ public class Standar extends Consumer implements Buyable, Reproductionable{
 		return listencategory;
 	}
 	/**
+	*name: numbergenderpodcast
+	*@return number with the gender with most cuantity of podcast
 	*/
 	public int numbergenderpodcast(){
 		int a=0,b=0,c=0,d=0,listencategory=0;
