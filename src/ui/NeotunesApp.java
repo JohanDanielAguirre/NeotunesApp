@@ -194,9 +194,9 @@ public class NeotunesApp {
 				break;
 				case 6:
 				do{
-					System.out.println("ingrese el nickname del  usuario que desea comprar canciones");
+					System.out.println("ingrese el nickname del  usuario que desea generar el informe");
 					nickname= sc.nextLine();
-					System.out.println("ingrese el documento del  usuario que comprar canciones");
+					System.out.println("ingrese el documento del  usuario que generar el informe");
 					id= sc.nextLine();
 					if(!Neo.searchuser(nickname,id)){
 						System.out.println("el usuario no existe");
